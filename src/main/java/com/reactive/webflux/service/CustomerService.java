@@ -4,6 +4,7 @@ import com.reactive.webflux.dao.CustomerDao;
 import com.reactive.webflux.dto.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -20,5 +21,14 @@ public class CustomerService {
         System.out.println("Total execution time: "+ (end - start));
         return customers;
 
+    }
+
+    public Flux<Customer> loadAllCustomerStream() {
+
+        long start = System.currentTimeMillis();
+        Flux<Customer> customers = customerDao.getCustomersStream();
+        long end= System.currentTimeMillis();
+        System.out.println("Total execution time: "+ (end - start));
+        return customers;
     }
 }
